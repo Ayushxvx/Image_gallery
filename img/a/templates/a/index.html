@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <link rel="icon" href="icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=DotGothic16&family=Nanum+Pen+Script&family=Pacifico&family=Rakkas&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Staatliches&family=Workbench&display=swap" rel="stylesheet">
+    <style>
+header{
+    background-color: #5f46c5;
+    color:white;
+    font-family:sans-serif;
+    font-weight:bold;
+text-align:center;
+}
+button,label,input{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-weight:bold;
+    padding:16px;
+}
+button{
+    background-color: white;
+    color:black;
+    font-weight:bold;
+    border-radius:16px;
+    cursor:pointer;
+}
+body{
+    background-color:#000000;
+    font-family:"Source Code Pro";
+    font-weight:bold;
+    color:limegreen;
+}
+button:active{
+    color:white;
+    background-color: black;
+}
+.imgdiv{
+    width:80%;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    grid-gap:32px;
+}
+figure{
+    display:inline-block;
+    width:100%;
+    box-shadow:16px 16px 16px white;
+}
+figure img{
+    display:inline-block;
+    border:2px solid white;
+    border-radius:16px;
+    height:15em;
+    width:100%;
+}
+h3,h4{
+    display:inline-block;
+    text-align:center;
+}
+.info{
+    text-align:center;
+    font-size:2em;
+    color:whitesmoke;
+    background-color: #333;
+    font-family:monospace;
+    font-weight:bold;
+}
+.info a:visited,a{
+    color:white;
+}
+    </style>
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+    <header>
+        {% csrf_token %}
+        <label for="image">Upload the Image :- </label><br>
+        <input type="file" required name="image" id="image"><br>
+        <label for="caption">Enter The Caption :- </label><br>
+        <input type="text" name="caption" id="caption"><br><br>
+        <button type="submit">Upload</button><br>
+    </header>
+    </form>
+    <br>
+    <div class="imgdiv">
+        {% for img in images %}
+        <figure>
+            <a href="{% url 'elaborate' id=img.id %}"><img src="{{img.image.url}}"></a><br>
+            <h3>{{img.caption}}</h3><br>
+            <h4>Uploaded at :- {{img.uploaded_at}}</h4><br>
+        </figure>
+        {% endfor %}
+    </div>
+    <br><br>
+    <div class="info">
+            By -- Ayush Verma <br><br>
+            <a href="https://github.com/ayushxvx" target="_blank">Ayush's Github</a><br><br>
+            <a href="https://www.linkedin.com/in/ayush-verma-a31050293" target="_blank">Ayush's Linkedin</a><br><br>
+    </div>
+</body>
+</html>
